@@ -1,11 +1,24 @@
 using System.Text;
 using FoodApp.Data;
 using FoodApp.Services;
+using FoodApp.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 
 // Database
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -26,11 +39,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 // Đăng ký Service
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<EmailServices>();
+builder.Services.AddScoped<FileService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RestaurantService>();
 builder.Services.AddScoped<MenuService>();
 builder.Services.AddScoped<OrderService>();
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -41,7 +54,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

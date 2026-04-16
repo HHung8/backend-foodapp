@@ -8,11 +8,11 @@ public class Order
     [Column("id")]
     public string Id { get; set; } = Ulid.NewUlid().ToString();
 
-    [Column("delivery_details")]
-    public string? DeliveryDetails { get; set; }
+    [Column("delivery_details")] 
+    public string? DeliveryDetails { get; set; } = "";
 
     [Column("cart_items")]
-    public string? CartItems { get; set; }
+    public string? CartItems { get; set; } = "";
 
     [Column("total_amount")]
     public decimal TotalAmount { get; set; }
