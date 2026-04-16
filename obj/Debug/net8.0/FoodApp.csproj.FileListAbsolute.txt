@@ -57,3 +57,4 @@
 /Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll
 /Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/bin/Debug/net8.0/BCrypt.Net-Next.dll
 /Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/bin/Debug/net8.0/Ulid.dll
+/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/obj/Debug/net8.0/FoodApp.sourcelink.json

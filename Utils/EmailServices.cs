@@ -12,7 +12,7 @@ public class EmailServices(IConfiguration config)
         message.Body = new TextPart("html") {Text = body};
         
         using var smtp = new SmtpClient();
-        await smtp.ConnectAsync(config["Email:Host"], int.Parse(config["Email:Port"]!), false);
+        await smtp.ConnectAsync(config["Email:Host"], int.Parse(config["Email:Port"]!), MailKit.Security.SecureSocketOptions.StartTls);
         await smtp.AuthenticateAsync(config["Email:Username"], config["Email:Password"]);
         await smtp.SendAsync(message);
         await smtp.DisconnectAsync(true);
