@@ -109,7 +109,7 @@ public class UserService(AppDbContext db, TokenService tokenService, EmailServic
     }
     
     // --Check Auth
-    public async Task<(bool success, string message, object? data)> CheckAuthAsync(int userId)
+    public async Task<(bool success, string message, object? data)> CheckAuthAsync(string userId)
     {
         var user = await db.Users.FindAsync(userId);
         if (user is null) return (false, "User not found", null);
@@ -122,7 +122,7 @@ public class UserService(AppDbContext db, TokenService tokenService, EmailServic
     }
     
     // --Update Profile
-    public async Task<(bool success, string message, object? data)> UpdateProfileAsync(int userId, string fullname,
+    public async Task<(bool success, string message, object? data)> UpdateProfileAsync(string userId, string fullname,
         string email, string address, string city, string country, IFormFile? profilePicture)
     {
         var user = await db.Users.FindAsync(userId);
