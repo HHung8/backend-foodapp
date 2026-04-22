@@ -2,6 +2,7 @@
 using FoodApp.Data;
 using FoodApp.Utils;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace FoodApp.Services;
 
@@ -129,10 +130,25 @@ public class RestaurantService(AppDbContext db, FileService fileService)
             }
         }
 
-        var restaurants = await query.Select(r => new
+        var rawRestaurants = await query.Select(r => new
         {
-            r.Id, r.RestaurantName, r.City, r.Country, r.DeliveryTime, r.Cuisines, r.ImageURL
+            r.Id, 
+            r.RestaurantName, 
+            r.City, 
+            r.Country, 
+            r.DeliveryTime,
+            r.Cuisines,
+            r.ImageURL
         }).ToListAsync();
+        
+        var restaurants = rawRestaurants.Select(r => new
+        {
+            r.Id, r.RestaurantName, r.City, r.Country, r.DeliveryTime, Cuisines = string.IsNullOrEmpty(r.Cuisines)  // ✅ tránh null
+                ? new List<string>() 
+                : JsonSerializer.Deserialize<List<string>>(r.Cuisines),
+            r.ImageURL
+        }).ToList();
+        
         return (true, restaurants);
     }
     

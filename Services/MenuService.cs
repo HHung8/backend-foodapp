@@ -39,6 +39,8 @@ public class MenuService(AppDbContext db, FileService fileService)
         if (image != null)
         {
             if(!string.IsNullOrEmpty(menu.Image)) fileService.DeleteImage(menu.Image);
+            string newImageUrl = await fileService.UploadImageAsync(image);
+            menu.Image = newImageUrl;
         }
 
         await db.SaveChangesAsync();

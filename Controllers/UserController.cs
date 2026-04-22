@@ -56,7 +56,7 @@ public class UserController(UserService userService) : ControllerBase
     {
         var userIdClaim = User.FindFirst("id")?.Value;
         if (userIdClaim is null) return Unauthorized(new { success = false, message = "Unauthorized" });
-        var (success, message, data) = await userService.CheckAuthAsync(int.Parse(userIdClaim));
+        var (success, message, data) = await userService.CheckAuthAsync(userIdClaim);
         return success ? Ok(new { success, data })
             : NotFound(new { success, message });
     }
@@ -68,7 +68,7 @@ public class UserController(UserService userService) : ControllerBase
         var userIdClaim = User.FindFirst("id")?.Value;
         if (userIdClaim is null) return Unauthorized(new { success = false, message = "Unauthorized" });
         var (success, message, data) = await userService.UpdateProfileAsync(
-            int.Parse(userIdClaim), req.Fullname, req.Email,
+            userIdClaim, req.Fullname, req.Email,
             req.Address, req.City, req.Country, req.ProfilePicture);
         return success ? Ok(new { success, message, data })
             : BadRequest(new { success, message });
