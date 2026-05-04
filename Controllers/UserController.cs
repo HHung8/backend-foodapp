@@ -34,7 +34,7 @@ public class UserController(UserService userService) : ControllerBase
     {
         Response.Cookies.Delete("token");
         return Ok(new { success = true, message = "Logged out successfully." });
-    }
+    }   
 
     [HttpPost("forgot-password")]
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest req)

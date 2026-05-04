@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4b5WOY3oz5g=",
+  "dgSpecHash": "lFGYmSdv01o=",
   "success": true,
   "projectFilePath": "/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/FoodApp.csproj",
   "expectedPackageFiles": [
@@ -42,5 +42,18 @@
     "/Users/nguyenhung/.nuget/packages/system.security.cryptography.pkcs/8.0.1/system.security.cryptography.pkcs.8.0.1.nupkg.sha512",
     "/Users/nguyenhung/.nuget/packages/ulid/1.4.1/ulid.1.4.1.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "Package 'MailKit' 4.15.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
+      "projectPath": "/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/FoodApp.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/FoodApp.csproj",
+      "libraryId": "MailKit",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
