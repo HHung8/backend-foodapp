@@ -8,7 +8,7 @@ namespace FoodApp.Controllers;
 [ApiController]
 [Route("api/order")]
 [Authorize]
-public class OrderController(OrderService orderService) : ControllerBase
+public class OrderController(OrderService orderService, StriperService stripeService) : ControllerBase
 {
     // GET: api/order
     [HttpGet]
@@ -23,18 +23,28 @@ public class OrderController(OrderService orderService) : ControllerBase
 
     // POST: api/order/checkout
     [HttpPost("checkout")]
-    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest req)
+    public async Task<IActionResult> CreateCheckoutSession([FromBody] CreateOrderRequest req)
     {
         var userId = User.FindFirst("id")?.Value;
         if (userId is null) return Unauthorized();
-
-        var (success, message, data) = await orderService.CreateOrderAsync(
+        var (success, message, sessionUrl) = await stripeService.CreateCheckoutSessionAsync(
             userId, req.RestaurantId, req.DeliveryDetails, req.CartItems, req.TotalAmount);
-
-        return success ? StatusCode(201, new { success, message, order = data })
-            : NotFound(new { success, message });
+        if(!success) return BadRequest(new { success, message });
+        return  Ok(new { success = true, session = new {url = sessionUrl}});
     }
-
+    
+    // webhook
+    [HttpPost("webhook")]
+    [AllowAnonymous]
+    public async Task<IActionResult> StripeWebhook()
+    {
+        var payload = await new StreamReader(Request.Body).ReadToEndAsync();
+        var signature = Request.Headers["Stripe-Signature"].ToString();
+        var (success, message) = await stripeService.HandleWebhookAsync(payload, signature);
+        return success ? Ok(message) : BadRequest(new {message});
+    }
+    
+    
     // PUT: api/order/{orderId}/status
     [HttpPut("{orderId}/status")]
     public async Task<IActionResult> UpdateOrderStatus(string orderId, [FromBody] UpdateOrderStatusRequest req)

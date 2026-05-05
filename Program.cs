@@ -1,12 +1,15 @@
 using System.Text;
 using FoodApp.Data;
 using FoodApp.Services;
-using FoodApp.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.OpenApi.Models;
+using Stripe;
+using FileService = FoodApp.Utils.FileService;
+using OrderService = FoodApp.Services.OrderService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +41,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+// Stripe config
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+// Register services
+builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<StriperService>();
+    
+
 // Đăng ký Service
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<EmailServices>();
@@ -48,7 +58,33 @@ builder.Services.AddScoped<MenuService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Bearer {token}"
+    });
+    
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
