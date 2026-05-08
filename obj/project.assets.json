@@ -2102,11 +2102,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/FoodApp.csproj",
+      "projectUniqueName": "/Users/nguyenhung/Documents/FoodApp/FoodAppServer/FoodApp/FoodApp.csproj",
       "projectName": "FoodApp",
-      "projectPath": "/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/FoodApp.csproj",
+      "projectPath": "/Users/nguyenhung/Documents/FoodApp/FoodAppServer/FoodApp/FoodApp.csproj",
       "packagesPath": "/Users/nguyenhung/.nuget/packages/",
-      "outputPath": "/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/obj/",
+      "outputPath": "/Users/nguyenhung/Documents/FoodApp/FoodAppServer/FoodApp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/nguyenhung/.nuget/NuGet/NuGet.Config"

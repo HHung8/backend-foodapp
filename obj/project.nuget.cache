@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yjcHjuNGucU=",
+  "dgSpecHash": "QjlKC+FykS4=",
   "success": true,
-  "projectFilePath": "/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/FoodApp.csproj",
+  "projectFilePath": "/Users/nguyenhung/Documents/FoodApp/FoodAppServer/FoodApp/FoodApp.csproj",
   "expectedPackageFiles": [
     "/Users/nguyenhung/.nuget/packages/bcrypt.net-next/4.1.0/bcrypt.net-next.4.1.0.nupkg.sha512",
     "/Users/nguyenhung/.nuget/packages/bouncycastle.cryptography/2.6.2/bouncycastle.cryptography.2.6.2.nupkg.sha512",
@@ -52,9 +52,9 @@
       "code": "NU1902",
       "level": "Warning",
       "message": "Package 'MailKit' 4.15.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
-      "projectPath": "/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/FoodApp.csproj",
+      "projectPath": "/Users/nguyenhung/Documents/FoodApp/FoodAppServer/FoodApp/FoodApp.csproj",
       "warningLevel": 1,
-      "filePath": "/Users/nguyenhung/Documents/FoodAppServer/FoodApp/FoodApp/FoodApp.csproj",
+      "filePath": "/Users/nguyenhung/Documents/FoodApp/FoodAppServer/FoodApp/FoodApp.csproj",
       "libraryId": "MailKit",
       "targetGraphs": [
         "net8.0"
